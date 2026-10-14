@@ -25,13 +25,14 @@ func CreateArticle(c *gin.Context) {
 	}
 
 	config.DB.Create(&article)
-	c.JSON(http.StatusOK, gin.H{"message": "Article created successfully"})
+	// c.JSON(http.StatusOK, gin.H{"message": "Article created successfully"})
+	c.JSON(http.StatusOK, gin.H{})
 }
 
 // 2. GET /article/list/:limit/:offset
 func GetArticles(c *gin.Context) {
-	limitStr := c.Param("limit")
-	offsetStr := c.Param("offset")
+	limitStr := c.Param("p1")	// p1 disini adalah limit
+	offsetStr := c.Param("p2")	// p2 disini adalah offset
 
 	limit, errLimit := strconv.Atoi(limitStr)
 	offset, errOffset := strconv.Atoi(offsetStr)
@@ -49,7 +50,7 @@ func GetArticles(c *gin.Context) {
 
 // 3. GET /article/:id
 func GetArticleByID(c *gin.Context) {
-	id := c.Param("id")
+	id := c.Param("p1")	// p1 disini adalah id, bukan limit
 	var article models.Article
 
 	if err := config.DB.First(&article, id).Error; err != nil {
@@ -60,9 +61,9 @@ func GetArticleByID(c *gin.Context) {
 	c.JSON(http.StatusOK, article)
 }
 
-// 4. PUT /article/:id (Bisa juga POST/PATCH sesuai spesifikasi)
+// 4. PUT /article/:id
 func UpdateArticle(c *gin.Context) {
-	id := c.Param("id")
+	id := c.Param("p1")
 	var article models.Article
 
 	if err := config.DB.First(&article, id).Error; err != nil {
@@ -83,7 +84,8 @@ func UpdateArticle(c *gin.Context) {
 		Status:   input.Status,
 	})
 
-	c.JSON(http.StatusOK, gin.H{"message": "Article updated successfully"})
+	// c.JSON(http.StatusOK, gin.H{"message": "Article updated successfully"})
+	c.JSON(http.StatusOK, gin.H{})
 }
 
 // 5. DELETE /article/:id (Diimplementasikan sebagai Soft Delete ke status 'thrash')
