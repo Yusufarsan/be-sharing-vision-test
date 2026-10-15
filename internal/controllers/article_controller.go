@@ -37,7 +37,7 @@ func GetArticles(c *gin.Context) {
 	limit, errLimit := strconv.Atoi(limitStr)
 	offset, errOffset := strconv.Atoi(offsetStr)
 
-	if errLimit != nil || errOffset != nil {
+	if errLimit != nil || errOffset != nil || limit < 0 || offset < 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid limit or offset parameters"})
 		return
 	}
