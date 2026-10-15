@@ -13,7 +13,6 @@ func SetupRoutes(r *gin.Engine) {
 		articleGroup.GET("/:p1/:p2", controllers.GetArticles)	
 		articleGroup.GET("/:p1", controllers.GetArticleByID)
 		articleGroup.PUT("/:id", controllers.UpdateArticle)
-		// atau POST /:id untuk update, sesuai preferensi, di sini menggunakan standar REST PUT
 		articleGroup.DELETE("/:id", controllers.DeleteArticle)
 	}
 }
