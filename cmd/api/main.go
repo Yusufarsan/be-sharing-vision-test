@@ -7,6 +7,7 @@ import (
 	"log"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
 )
 
 func main() {
@@ -19,6 +20,7 @@ func main() {
 	log.Println("Database migration completed.")
 
 	r := gin.Default()
+	r.Use(cors.Default())
 
 	// Inisialisasi routes
 	routes.SetupRoutes(r)
